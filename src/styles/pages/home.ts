@@ -46,15 +46,15 @@ export const Product = styled(Link, {
     transition: 'all 0.2s ease-in-out',
 
     strong: {
-      fontSize: '$lg',
+      fontSize: '$xl',
       color: '$gray100'
     },
 
     span: {
       fontSize: '$xl',
       fontWeight: 'bold',
-      color: '$green300'
-    }
+      color: '$green500'
+    },
   },
 
   '&:hover': {
@@ -63,4 +63,23 @@ export const Product = styled(Link, {
       opacity: 1
     }
   }
+})
+
+export const InfoContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 4
+})
+
+export const IconContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  textAlign: 'center',
+
+  padding: '12px',
+  backgroundColor: '$green300',
+  border: 0,
+  borderRadius: 6,
+  
+  cursor: 'pointer',
 })

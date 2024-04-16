@@ -8,7 +8,8 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 
 import { stripe } from "../lib/stripe";
-import { HomeContainer, Product } from "../styles/pages/home";
+import { HomeContainer, Product, InfoContainer, IconContainer } from "../styles/pages/home";
+import { Handbag } from "@phosphor-icons/react";
 
 interface HomeProps {
   products: {
@@ -39,8 +40,14 @@ export default function Home({ products }: HomeProps) {
             <Product href={`/product/${product.id}`} key={product.id} className="keen-slider__slide" prefetch={false}>
               <Image src={product.imageUrl} width={570} height={480} alt="" />
               <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <InfoContainer>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </InfoContainer>
+
+                <IconContainer>
+                  <Handbag color="#FFF" size={32} weight="bold" />
+                </IconContainer>
               </footer>
             </Product>
           )
@@ -50,7 +57,7 @@ export default function Home({ products }: HomeProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async ({  }) => {
+export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
     expand: ['data.default_price']
   })
