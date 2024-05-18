@@ -28,29 +28,43 @@ export const SuccessContainer = styled('main', {
 
     fontSize: '$lg',
     fontWeight: 'bold',
-    color: '$green500',
+    color: '$green300',
     textDecoration: 'none',
 
     '&:hover': {
-      color: '$green300',
+      color: '$green500',
     }
-  }
+  },
+
 })
 
-export const ImageContainer = styled('div', {
-  width: '100%',
-  maxWidth: 130,
-  height: 145,
-  background: 'linear-gradient(180deg, #1EA483 0%, #7465D4 100%)',
-  borderRadius: 8,
-  padding: '0.25rem',
-  marginTop: '4rem',
+export const ImagesContainer = styled('div', {
 
   display: 'flex',
-  alignItems: 'center',
   justifyContent: 'center',
+  alignItems: 'center',
 
-  img: {
-    objectFit: 'cover'
+  div: {
+    width: '100%',
+    maxWidth: 130,
+    height: 130,
+    background: 'linear-gradient(180deg, #1EA483 0%, #7465D4 100%)',
+    borderRadius: '1000px',
+    padding: '0.25rem',
+    boxShadow: '0px 0px 60px 0px rgba(0, 0, 0, 0.80)',
+
+    marginBottom: '3rem',
+
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    img: {
+      objectFit: 'cover',
+    },
+
+    '&:not(:first-child)': {
+      marginLeft: '-50px'
+    }
   }
 })
