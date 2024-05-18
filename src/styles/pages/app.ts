@@ -1,5 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { styled } from "..";
+import { useRouter } from "next/router";
 
 export const Container = styled('div', {
   display: 'flex',
@@ -8,6 +9,12 @@ export const Container = styled('div', {
   justifyContent: 'center',
   minHeight: '100vh',
   padding: '0 0 0 2rem'
+})
+
+export const Centered = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
 })
 
 export const Header = styled('header', {

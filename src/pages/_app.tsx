@@ -7,27 +7,38 @@ import logo from '../assets/logo.svg'
 import shirt from '../assets/shirt.svg'
 
 import { globalStyles } from "../styles/global";
-import { Container, Header, IconContainer, DialogContent, DialogOverlay,  DialogTitle, ContainerContent, CardsContainer, CardImage, Card, CardInfo, TotalContainer, TotalInfo, Amount, Value } from "../styles/pages/app";
+import { Container, Header, IconContainer, DialogContent, DialogOverlay,  DialogTitle, ContainerContent, CardsContainer, CardImage, Card, CardInfo, TotalContainer, TotalInfo, Amount, Value, Centered } from "../styles/pages/app";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 globalStyles();
 
 export default function App({ Component, pageProps }: AppProps) {
   const [quantity, setQuantity] = useState(3)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-
+  const { pathname } = useRouter()
+  
   return (
     <Container>
       <Header>
-        <Image src={logo} alt="" />
+        { pathname !== '/success' ? (
+            <>
+              <Image src={logo} alt="" />
 
-        <a onClick={() => setIsDialogOpen(true)}>
-          <IconContainer>
-            <Handbag color="#C4C4CC" size={24} weight="bold" />
-          </IconContainer>
-          {quantity > 0 ? <span>{quantity}</span> : null}
-        </a>
+              <a onClick={() => setIsDialogOpen(true)}>
+                <IconContainer>
+                  <Handbag color="#C4C4CC" size={24} weight="bold" />
+                </IconContainer>
+                {quantity > 0 ? <span>{quantity}</span> : null}
+              </a>
+            </>
+          ) : (
+            <Centered>
+              <Image src={logo} alt="" />
+            </Centered>
+          )
+        }
       </Header>
 
       <>
