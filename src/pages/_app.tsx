@@ -11,6 +11,7 @@ import { Container, Header, IconContainer, DialogContent, DialogOverlay,  Dialog
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 globalStyles();
 
@@ -24,7 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <Header>
         { pathname !== '/success' ? (
             <>
-              <Image src={logo} alt="" />
+              <Link href='/'>
+                <Image src={logo} alt="" />
+              </Link>
 
               <a onClick={() => setIsDialogOpen(true)}>
                 <IconContainer>
@@ -35,7 +38,9 @@ export default function App({ Component, pageProps }: AppProps) {
             </>
           ) : (
             <Centered>
-              <Image src={logo} alt="" />
+              <Link href='/'>
+                <Image src={logo} alt="" />
+              </Link>
             </Centered>
           )
         }
