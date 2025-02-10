@@ -6,8 +6,9 @@ import Stripe from 'stripe'
 import { stripe } from '../../lib/stripe'
 
 import { ImageContainer, ProductContainer, ProductDetails } from '../../styles/pages/product'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Head from 'next/head'
+import { CartContext } from '../../context/CartContext'
 
 interface ProductProps {
   product: {
@@ -15,36 +16,26 @@ interface ProductProps {
     name: string
     imageUrl: string
     price: string
-    description: string
+    description: string,
+    numberPrice: number,
     defaultPriceId: string
   }
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
   const { isFallback } = useRouter()
+
+  const { existProductOnCart, addProductToCart } = useContext(CartContext)
 
   if (isFallback) {
     return <p>Loading...</p>
   }
 
   async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
+    const exist = existProductOnCart(product.id)
 
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId
-      })
-
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
-    } catch (error) {
-      // o ideal seria conectar com uma ferramenta de observabilidade (Datadog / Sentry)
-
-      setIsCreatingCheckoutSession(false)
-
-      alert('Falha ao redirecionar ao checkout!')
+    if (!exist) {
+      addProductToCart(product)
     }
   }
 
@@ -67,7 +58,7 @@ export default function Product({ product }: ProductProps) {
 
           <p>{product.description}</p>
         
-          <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>Colocar na sacola</button>
+          <button onClick={handleBuyProduct}>Colocar na sacola</button>
         </ProductDetails>
       </ProductContainer>
     </>
@@ -101,6 +92,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
           style: 'currency',
           currency: 'BRL'
         }).format(price.unit_amount / 100),
+        numberPrice: price.unit_amount / 100,
         description: product.description,
         defaultPriceId: price.id
       }
